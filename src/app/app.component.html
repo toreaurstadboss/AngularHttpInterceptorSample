@@ -1,20 +1,37 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+
+  <div class="well">
+     {{ title }} Version: {{version}}
+  </div>
+
+  <h3>Caching http requests client-side in Angular 8 using HttpInterceptor</h3>
+  <p>Click the link below to reload some large json blob and cache client side. Inspect Network tab in developer tools
+    of your browser to spot the cached client-side data.
+  </p>
+  <a href="#" (click)="fetchTownsJsonData()">Trigger Http Get Request against api/calls to retrieve large Json blob</a>
+  <br />
+
+  <mat-table [dataSource]=dataSource>
+    <ng-container  matColumnDef="Tettsted">
+      <mat-header-cell *matHeaderCellDef>Tettsted</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.Tettsted}}</mat-cell>
+    </ng-container>
+    <ng-container  matColumnDef="Kommune">
+      <mat-header-cell *matHeaderCellDef>Kommune</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.Kommune}}</mat-cell>
+    </ng-container>
+    <ng-container  matColumnDef="Folkemengde">
+      <mat-header-cell *matHeaderCellDef>Folkemengde</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.Folkemengde}}</mat-cell>
+    </ng-container>
+  <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+     <mat-row *matRowDef="let row; columns: tableColumns"></mat-row>
+  </mat-table>
+
+  <br />
+
   <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
 
