@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DataserviceService } from './core/dataservice.service';
 import { TownOrCity } from './core/town-or-city';
-import { $ } from 'protractor';
-
+import { MatTable } from '@angular/material';
+import { CacheService } from './core/cache.service';
 
 @Component({
   selector: 'app-root',
@@ -14,27 +14,28 @@ export class AppComponent {
   version = 1.0;
   tableColumns: string[] = ['Tettsted', 'Kommune', 'Folkemengde'];
   dataSource: TownOrCity[];
+  @ViewChild('Tettstedstabell', {static: true}) private tettstedsTabell: MatTable<any>;
 
-  constructor(private dataService: DataserviceService) {
+  constructor(private dataService: DataserviceService, private cacheService: CacheService) {
 
+  }
+
+  handleUpdateFetchTownsJsonData(data: TownOrCity[]) {
+    this.dataSource = data;
+  }
+
+  clearTownsJsonData() {
+      this.dataSource = undefined;
+      this.cacheService.invalidateCache();
   }
 
   fetchTownsJsonData() {
     this.dataService.getAllTownsAndCities()
-    .subscribe((data: TownOrCity[]) => {
-      this.dataSource = data;
-      console.log(data);
-
+    .subscribe({
+      next: this.handleUpdateFetchTownsJsonData.bind(this)
     });
   }
 
-  ngOnInit() {
-
-
-
-
+  OnInit() {
   }
-
-
-
 }

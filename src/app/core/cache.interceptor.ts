@@ -10,7 +10,7 @@ export class CacheInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      
+
 
         if (req.method !== 'GET') {
             this.cacheService.invalidateCache();
@@ -24,7 +24,11 @@ export class CacheInterceptor implements HttpInterceptor {
             tap(event => {
                 if (event instanceof HttpResponse) {
                     this.cacheService.put(req.url, event);
+                    let reponse: HttpResponse<any>;
+                    reponse  = event;
+
                 }
+                return of(event);
             })
         );
     }

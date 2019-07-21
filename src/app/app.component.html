@@ -7,12 +7,13 @@
 
   <h3>Caching http requests client-side in Angular 8 using HttpInterceptor</h3>
   <p>Click the link below to reload some large json blob and cache client side. Inspect Network tab in developer tools
-    of your browser to spot the cached client-side data.
+    of your browser to spot that data is cached at the client side. This technique reduced calls to the API.
   </p>
-  <a href="#" (click)="fetchTownsJsonData()">Trigger Http Get Request against api/calls to retrieve large Json blob</a>
+  <a href="#" (click)="clearTownsJsonData()">Clear table</a><br />
+  <a href="#" (click)="fetchTownsJsonData()">Load data to client</a>
   <br />
 
-  <mat-table [dataSource]=dataSource>
+  <mat-table #Tettstedstabell [dataSource]=dataSource>
     <ng-container  matColumnDef="Tettsted">
       <mat-header-cell *matHeaderCellDef>Tettsted</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.Tettsted}}</mat-cell>
