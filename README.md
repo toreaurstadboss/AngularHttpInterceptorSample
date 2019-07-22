@@ -1,27 +1,42 @@
 # ClientSideCaching
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.0.
+This project was initated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.0.
+The projects shows how an HttpInterceptor can be used in Angular (Angular 8 is being uses here)
+to support a client side cache. This allows for saving round trips to the server by caching data locally on the client.
+
+# Solution build up
+The src/app/core folder contains the CacheService and the DataService. The CacheService will cache responses from the API on the client looking at the route url and the caching is done in-memory. The DataService performs the API call to the backend. The backend is to be found in server.js file, which is a simple Express.js server. This backend contains a json file with our data of population data of towns in Norway. 
+The HttpInterceptor is found in the file cache.interceptor.ts. The interceptor is added into the app module as shown below. 
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+<b>import { CacheInterceptor } from './core/cache.interceptor';</b>
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from  '@angular/material';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    MatTableModule,
+    BrowserAnimationsModule
+  ],
+   <b>providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true }
+  ]</b>,
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you
+change the contents of certain files, primarily the .ts and .js files included, plus markup files such as .htm(l).
+This sample also includes an Express.js backend running at port 3000. 
