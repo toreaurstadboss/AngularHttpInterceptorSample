@@ -5,6 +5,7 @@ import { CacheInterceptor } from './core/cache.interceptor';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from  '@angular/material';
+import { LoggerService } from './core/logger.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { MatTableModule } from  '@angular/material';
     BrowserAnimationsModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true },
+    LoggerService
   ],
   bootstrap: [AppComponent]
 })
